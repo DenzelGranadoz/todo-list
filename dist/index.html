@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <script src="main.js"></script>
+</head>
+<body>
+  <h1 class="title">To-Do List</h1>
+  <!-- project list -->
+  <div class="all-projects">
+    <h2 class="project-list-title">Projects</h2>
+    <ul class="project-list">
+      <li class="project-name">WebDev</li>
+      <li class="project-name">School</li>
+      <li class="project-name">Choirs</li>
+    </ul>
+    <button class="btn open-add-project">Add Project</button>
+  </div>
+  <!-- todo / task list -->
+  <div class="todo-list">
+    <div class="todo-header">
+      <h2>Project Name</h2>
+      <h3>Project Description</h3>
+    </div>
+    <div class="todo-body">
+      <div class="tasks">
+        <!-- to add due date, edit btn, delete btn -->
+        <div class="task">
+          <input type="checkbox" id="task-1"/>
+          <label for="task-1">
+            <span class="custon-checkbox"></span>
+            This is a todo
+          </label>
+        </div>
+        <div class="task">
+          <input type="checkbox" id="task-1"/>
+          <label for="task-2">
+            <span class="custon-checkbox"></span>
+            This is a todo 2
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- add project form  -->
+  <div class="form">
+    <div class="form-element">
+      <label for="project-name">Project Name</label>
+      <input type="text" id="project-name" placeholder="Project Name / Task">
+    </div>
+    <div class="form-element">
+      <label for="project-description">Description</label>
+      <input type="text" id="project-description" placeholder="Project Description">
+    </div>
+    <div class="form-element">
+      <button class="btn add-project">+</button>
+      <button class="btn close-add-project">X</button>
+    </div>
+  </div>
+</body>
+</html>
