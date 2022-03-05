@@ -1,11 +1,279 @@
+@font-face {
+  font-family: 'Mathlete';
+  src: url('../assets/Mathlete-Bulky-webfont.woff') format('woff'),
+    url('../assets/Mathlete-BulkySlant-webfont.woff') format('woff'),
+    url('../assets/Mathlete-Skinny-webfont.woff') format('woff'),
+    url('../assets/Mathlete-SkinnySlant-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --main-color: #3AAFA9;
   --secondary-color: #2B7A78;
   --font-color: #DEF2F1;
-  --third-color: #17252A;
+  --border-color: #17252A;
+  --border-radius: 15px;
+  --green-color: lawngreen;
   /* --fourth-color: #FEFFFF; */
 }
 
+*,
+*::before,
+*::after {
+  font-size: 1.2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  font-family: 'Mathlete', 'sans-serif';
   background-color: var(--main-color);
+  color: var(--font-color);
+  display: grid;
+  grid: "header header header header" auto 
+        "projects tasks tasks tasks " auto / 
+        350px minmax(250px, auto) 1fr 1fr;
+}
+
+body h1 {
+  grid-area: header;
+  background-color: var(--secondary-color);
+  text-align: center;
+  padding: 0.2em;
+  margin: 0.25em;
+  font-size: 4.5rem;
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.all-projects {
+  grid-area: projects;
+  background-color: var(--secondary-color);
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin: 0.4em 0.6em 0.4em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-list-title {
+  text-align: center;
+  padding: 0.8rem;
+  margin: 0;
+  font-size: 2.5rem;
+  width: 90%;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.project-list {
+  font-weight: 400;
+  font-style: italic;
+  width: 90%;
+  line-height: 1.5;
+  padding: 0.4rem;
+  margin: 0;
+  text-align: center;
+}
+
+.project-name {
+  list-style: none;
+  width: 100%;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 200ms ease-in-out;
+}
+
+.project-name:hover {
+  background-color: var(--main-color);
+  font-weight: 700;
+}
+
+.active-project {
+  font-weight: 700;
+  background-color: var(--main-color);
+  opacity: 0.8;
+}
+
+.btn {
+  cursor: pointer;
+  background: 0;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  transition: background-color 200ms ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--main-color);
+}
+
+.btn.open-add-project {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem;
+  margin-top: 0;
+  padding: 0.3rem 0;
+  width: 85%;
+  border-radius: 5px;
+}
+
+.btn.open-add-project:hover {
+  color: var(--green-color);
+}
+
+.todo-list {
+  grid-area: tasks;
+  background-color: var(--secondary-color);
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin: 0.4em 1em 0.4em 0.6em;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.todo-header {
+  width: 100%;
+  border-bottom: 2px solid var(--border-color);
+  padding: 0.3rem;
+}
+
+.todo-header-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-header-bar h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+}
+
+.todo-edit-remaining p{
+  margin: 0;
+  padding: 0.1rem;
+  text-align: end;
+}
+
+.edit {
+  font-size: 1.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.edit:hover {
+  opacity: 0.7;
+}
+
+.todo-header h4 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.todo-body {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.custom-checkbox {
+  --size: 1rem;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  cursor: pointer;
+  border: 2px solid var(--border-color);
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
+}
+
+.task:hover .custom-checkbox,
+[type="checkbox"]:focus + label .custom-checkbox {
+  transform: scale(1.2);
+}
+
+[type="checkbox"]:checked + label .custom-checkbox {
+  background: var(--green-color);
+  box-shadow: inset 0 0 0px 1px var(--secondary-color);
+}
+
+[type="checkbox"]:checked + label {
+  opacity: 0.5;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2.4rem;
+  padding: 0.5rem;
+}
+
+.task:hover {
+  background-color: var(--main-color);
+  
+}
+
+.task label {
+  position: relative;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.task label::after {
+  content: "";
+  position: absolute;
+  left: 1.3rem;
+  right: -0.2rem;
+  top: 40%;
+  height: 3px;
+  background-color: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 150ms ease-in-out;
+}
+
+[type="checkbox"]:checked + label::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* <div class="todo-list">
+<div class="todo-header">
+  <h2>Project Name</h2>
+  <h3>Project Description</h3>
+</div>
+<div class="todo-body">
+  <div class="tasks">
+    <!-- to add due date, edit btn, delete btn -->
+    <div class="task">
+      <input type="checkbox" id="task-1"/>
+      <label for="task-1">
+        <span class="custon-checkbox"></span>
+        This is a todo
+      </label>
+    </div>
+    <div class="task">
+      <input type="checkbox" id="task-1"/>
+      <label for="task-2">
+        <span class="custon-checkbox"></span>
+        This is a todo 2
+      </label>
+    </div>
+  </div>
+</div>
+</div> */
+
+.form {
+  display: none;
 }

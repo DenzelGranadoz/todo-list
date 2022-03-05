@@ -13,7 +13,7 @@
   <div class="all-projects">
     <h2 class="project-list-title">Projects</h2>
     <ul class="project-list">
-      <li class="project-name">WebDev</li>
+      <li class="project-name active-project">Odin</li>
       <li class="project-name">School</li>
       <li class="project-name">Choirs</li>
     </ul>
@@ -22,8 +22,14 @@
   <!-- todo / task list -->
   <div class="todo-list">
     <div class="todo-header">
-      <h2>Project Name</h2>
-      <h3>Project Description</h3>
+      <div class="todo-header-bar">
+        <h2>Odin</h2>
+        <div class="todo-edit-remaining">
+          <p>N Tasks Remaining</p>
+          <p class="edit">Edit</p>
+        </div>
+      </div>
+      <h4>Project Description</h4>
     </div>
     <div class="todo-body">
       <div class="tasks">
@@ -31,16 +37,24 @@
         <div class="task">
           <input type="checkbox" id="task-1"/>
           <label for="task-1">
-            <span class="custon-checkbox"></span>
+            <span class="custom-checkbox"></span>
             This is a todo
           </label>
+          <div class="task-properties">
+            <!-- add a note?, due date, remove button -->
+            <button>X</button>
+          </div>
         </div>
         <div class="task">
-          <input type="checkbox" id="task-1"/>
+          <input type="checkbox" id="task-2"/>
           <label for="task-2">
-            <span class="custon-checkbox"></span>
+            <span class="custom-checkbox"></span>
             This is a todo 2
           </label>
+          <div class="task-properties">
+            <!-- add a note?, due date, remove button -->
+            <button>X</button>
+          </div>
         </div>
       </div>
     </div>
@@ -49,11 +63,21 @@
   <div class="form">
     <div class="form-element">
       <label for="project-name">Project Name</label>
-      <input type="text" id="project-name" placeholder="Project Name / Task">
+      <input 
+        type="text" 
+        id="project-name" 
+        placeholder="Project Name / Task" 
+        aria-label="Project Name / Task"
+      />
     </div>
     <div class="form-element">
       <label for="project-description">Description</label>
-      <input type="text" id="project-description" placeholder="Project Description">
+      <input 
+        type="text" 
+        id="project-description" 
+        placeholder="Project Description"
+        aria-label="Project Description"
+        />
     </div>
     <div class="form-element">
       <button class="btn add-project">+</button>
