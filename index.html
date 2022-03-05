@@ -25,7 +25,7 @@
       <div class="todo-header-bar">
         <h2>Odin</h2>
         <div class="todo-edit-remaining">
-          <p>N Tasks Remaining</p>
+          <p>N Task(s) Remaining</p>
           <p class="edit">Edit</p>
         </div>
       </div>
@@ -41,8 +41,10 @@
             This is a todo
           </label>
           <div class="task-properties">
-            <!-- add a note?, due date, remove button -->
-            <button>X</button>
+            <!-- add a note?, due date shud be serve as the edit for it, remove button, ||| use divs for this -->
+            <div class="task-property notes">Notes</div>
+            <div class="task-property due-date">12/4/1999</div>
+            <div class="task-property delete-task">X</div>
           </div>
         </div>
         <div class="task">
@@ -53,12 +55,42 @@
           </label>
           <div class="task-properties">
             <!-- add a note?, due date, remove button -->
-            <button>X</button>
+            <div class="task-property notes">Notes</div>
+            <div class="task-property due-date">12/4/1999</div>
+            <div class="task-property delete-task">X</div>
           </div>
         </div>
+        <div class="task">
+          <input type="checkbox" id="task-3"/>
+          <label for="task-3">
+            <span class="custom-checkbox"></span>
+            This is a todo 3
+          </label>
+          <div class="task-properties">
+            <!-- add a note?, due date, remove button -->
+            <div class="task-property notes">Notes</div>
+            <div class="task-property due-date">12/4/1999</div>
+            <div class="task-property delete-task">X</div>
+          </div>
+        </div>
+        <div class="task">
+          <input type="checkbox" id="task-4"/>
+          <label for="task-4">
+            <span class="custom-checkbox"></span>
+            This is a todo 4
+          </label>
+          <div class="task-properties">
+            <!-- add a note?, due date, remove button -->
+            <div class="task-property notes">Notes</div>
+            <div class="task-property due-date">12/4/1999</div>
+            <div class="task-property delete-task">X</div>
+          </div>
+        </div>
+        <button class="btn add-task">Add task</button>
       </div>
     </div>
   </div>
+  
   <!-- add project form  -->
   <div class="form">
     <div class="form-element">
@@ -84,5 +116,15 @@
       <button class="btn close-add-project">X</button>
     </div>
   </div>
+
+  <footer class="footer">
+    <div class="footer-contents">
+      <span><a href="https://github.com/DenzelGranadoz" target="_blank">Made by: Denzel Granadoz</a></span>
+      <span>|</span>
+      <span><a href="https://github.com/DenzelGranadoz/todo-list" target="_blank">Click me for Source Code</a></span>
+
+    </div>
+  </footer>
 </body>
 </html>
+
