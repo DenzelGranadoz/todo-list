@@ -15,10 +15,11 @@
     <ul class="project-list">
       <li class="project-name active-project">Odin</li>
       <li class="project-name">School</li>
-      <li class="project-name">Choirs</li>
+      <li class="project-name">Chores</li>
     </ul>
     <button class="btn open-add-project">Add Project</button>
   </div>
+
   <!-- todo / task list -->
   <div class="todo-list">
     <div class="todo-header">
@@ -31,9 +32,28 @@
       </div>
       <h4>Project Description</h4>
     </div>
+    <div class="todo-header hide">
+      <div class="todo-header-bar">
+        <input 
+          type="text" 
+          id="project-name-edit" 
+          placeholder="Odin"
+          aria-label="Project Name"
+          />
+          <div class="todo-edit-remaining">
+            <button class="btn close-add-project edit-project">Cancel</button>
+            <button class="btn add-project edit-project">Save</button>
+          </div>
+      </div>
+      <input 
+        type="text" 
+        id="project-description-edit" 
+        placeholder="Project Description"
+        aria-label="Project description"
+        />
+    </div>
     <div class="todo-body">
       <div class="tasks">
-        <!-- to add due date, edit btn, delete btn -->
         <div class="task">
           <input type="checkbox" id="task-1"/>
           <label for="task-1">
@@ -41,8 +61,7 @@
             This is a todo
           </label>
           <div class="task-properties">
-            <!-- add a note?, due date shud be serve as the edit for it, remove button, ||| use divs for this -->
-            <div class="task-property notes">Notes</div>
+            <!-- <div class="task-property notes">Notes</div> -->
             <div class="task-property due-date">12/4/1999</div>
             <div class="task-property delete-task">X</div>
           </div>
@@ -54,8 +73,7 @@
             This is a todo 2
           </label>
           <div class="task-properties">
-            <!-- add a note?, due date, remove button -->
-            <div class="task-property notes">Notes</div>
+            <!-- <div class="task-property notes">Notes</div> -->
             <div class="task-property due-date">12/4/1999</div>
             <div class="task-property delete-task">X</div>
           </div>
@@ -67,8 +85,7 @@
             This is a todo 3
           </label>
           <div class="task-properties">
-            <!-- add a note?, due date, remove button -->
-            <div class="task-property notes">Notes</div>
+            <!-- <div class="task-property notes">Notes</div> -->
             <div class="task-property due-date">12/4/1999</div>
             <div class="task-property delete-task">X</div>
           </div>
@@ -80,8 +97,20 @@
             This is a todo 4
           </label>
           <div class="task-properties">
-            <!-- add a note?, due date, remove button -->
-            <div class="task-property notes">Notes</div>
+            <!-- <div class="task-property notes">Notes</div> -->
+            <div class="task-property due-date">12/4/1999</div>
+            <div class="task-property delete-task">X</div>
+          </div>
+        </div>
+        <div class="new-task hide">
+          <input 
+            type="text" 
+            id="task-name" 
+            placeholder="Task Name / Description"
+            aria-label="Task Name / Description"
+            />
+          <div class="task-properties">
+            <!-- <div class="task-property notes">Notes</div> -->
             <div class="task-property due-date">12/4/1999</div>
             <div class="task-property delete-task">X</div>
           </div>
@@ -92,9 +121,9 @@
   </div>
   
   <!-- add project form  -->
-  <div class="form">
+  <div class="form hide">
     <div class="form-element">
-      <label for="project-name">Project Name</label>
+      <label for="project-name">Project Name:</label>
       <input 
         type="text" 
         id="project-name" 
@@ -103,7 +132,7 @@
       />
     </div>
     <div class="form-element">
-      <label for="project-description">Description</label>
+      <label for="project-description">Description:</label>
       <input 
         type="text" 
         id="project-description" 
@@ -111,12 +140,13 @@
         aria-label="Project Description"
         />
     </div>
-    <div class="form-element">
-      <button class="btn add-project">+</button>
-      <button class="btn close-add-project">X</button>
+    <div class="form-element form-element-button">
+      <button class="btn close-add-project">Cancel</button>
+      <button class="btn add-project">Add Project</button>
     </div>
   </div>
 
+  <!-- footer  -->
   <footer class="footer">
     <div class="footer-contents">
       <span><a href="https://github.com/DenzelGranadoz" target="_blank">Made by: Denzel Granadoz</a></span>
