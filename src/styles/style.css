@@ -62,6 +62,10 @@ body h1 {
   align-items: center;
 }
 
+.close-list { 
+  display: none;
+}
+
 .project-list-title {
   text-align: center;
   padding: 0.8rem;
@@ -165,6 +169,10 @@ body h1 {
   margin: 0;
   padding: 0.1rem;
   text-align: end;
+}
+
+.show-project-list {
+  display: none;
 }
 
 #project-name-edit { 
@@ -442,4 +450,180 @@ body h1 {
 /* toggle  */
 .hide {
   display: none;
+}
+
+/* media queries */
+@media only screen and (max-width: 1000px) {
+  body {
+    grid: "header header header header" auto 
+    "projects tasks tasks tasks " 78vh
+    "footer footer footer footer" 50px/ 
+    250px minmax(250px, auto) 1fr 1fr;
+  }
+
+  body h1 {
+    font-size: 4rem;
+  }
+  
+  .project-list-title {
+    font-size: 2rem;
+  }
+  
+  .project-name {
+    font-size: 1.8rem;
+  }
+  
+  .btn.open-add-project {
+    font-size: 1.8rem;
+  }
+  
+  .todo-header-bar h2 {
+    font-size: 3.5rem;
+  }
+  
+  #project-name-edit { 
+    font-size: 3.3rem;
+  }
+  
+  #project-description-edit {
+    font-size: 1.6rem;
+  }
+  
+  .edit-project {
+    font-size: 1.8rem;
+  }
+  
+  .edit {
+    font-size: 1.3rem;
+  }
+  
+  .todo-header h4 {
+    font-size: 1.2rem;
+  }
+  
+  .task {
+    font-size: 2rem;
+  }
+  
+  .task label {
+    font-size: 1.4rem;
+  }
+  
+  .add-task {
+    font-size: 1.8rem;
+  }
+  
+  .new-task [type="text"] {
+    font-size: 1.3rem;
+    width: 20%;
+  }
+  
+  .form-element button {
+    font-size: 1.8rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    grid: "header header header header" auto 
+    "tasks tasks tasks tasks " 78vh
+    "footer footer footer footer" 50px/ 
+    minmax(150px, auto);
+  }
+
+  body h1 {
+    font-size: 4rem;
+  }
+
+  .all-projects {
+    position: absolute;
+    right: -500px;
+    height: 100vh;
+    width: 50vw;
+    margin: 0;
+    border-radius: 0;
+    border: 0px;
+  }
+
+  .close-list {
+    display:block;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .close-list:hover {
+    opacity: 0.8;
+    color: rgba(255, 0, 0, 0.8)
+  }
+  
+  .project-list-title {
+    font-size: 1.8rem;
+  }
+  
+  .project-name {
+    font-size: 1.5rem;
+  }
+  
+  .btn.open-add-project {
+    font-size: 1.5rem;
+  }
+  
+  .todo-header-bar h2 {
+    font-size: 3.2rem;
+  }
+
+  .show-project-list {
+    display: block;
+    font-size: 1.4rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .show-project-list:hover {
+    opacity: 0.6;
+  }
+  
+  #project-name-edit { 
+    font-size: 2rem;
+  }
+  
+  #project-description-edit {
+    font-size: 1rem;
+  }
+  
+  .edit-project {
+    font-size: 1.5rem;
+  }
+  
+  .edit {
+    font-size: 1.1rem;
+  }
+  
+  
+  .todo-header h4 {
+    font-size: 1rem;
+  }
+  
+  .task {
+    font-size: 1.8rem;
+  }
+  
+  .task label {
+    font-size: 1.2rem;
+  }
+  
+  .add-task {
+    font-size: 1.5rem;
+  }
+  
+  .new-task [type="text"] {
+    font-size: 1.2rem;
+    width: 20%;
+  }
+  
+  .form-element button {
+    font-size: 1.6rem;
+  }
 }
