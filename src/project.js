@@ -1,34 +1,33 @@
-//know which list item is active
-//add event to add project btn
-//have forms call makeList() 
+import { projectsDom } from "./domManipulation";
+export { makeList, addProject }
 
-export {makeList}
-
-const projectListContainer = document.querySelector('.project-list');
-
+//tasks key: value?
 const projectListObject = (name, description) => {
   return {name, description}
 };
 
 function makeList() {
-  let projectListArr = [];
-  projectListArr.push(projectListObject('Sample', 'jfdakfkdlfdsla'));
-  projectListArr.push(projectListObject('Sample2', 'ietuwiotuiweo'));
-  render(projectListArr);
+  let projectListArr = [];                                            //this list has to be accessible elsewhere for the localstorage thing?
+  projectListArr.push(projectListObject('Sample', 'jfdakfkdlfdsla')); //when add btn in form clicked, trigger function that does this
+  _render(projectListArr);
 }
 
-function render(projectArr) {
-  clearElements(projectListContainer);
-  projectArr.forEach((project) => {
-    const listElement = document.createElement('li');
-    listElement.classList.add('project-name');
-    listElement.innerHTML = project.name;
-    projectListContainer.appendChild(listElement);
-  })
+// projectListArr.push(projectListObject('Sample2', 'ietuwiotuiweo'));
+//have an event listener that calls render first time round?
+
+function _render(projectArr) {
+  projectsDom.clearListElements(projectsDom.projectListContainer);    //id = index
+  projectsDom.renderProjectList(projectArr);
 }
 
-function clearElements(element) {
-  while (element.firstChild) {
-    element.firstChild.remove();
-  }
-}
+function addProject() {
+  
+  //take value from name and description input boxes
+    //have makelist take two parameters, name and the description
+    //then projectListArr.push(projectListObject(first param, 2nd param))
+  //create object with such parameters
+  
+  projectsDom.toggleProjectForm();
+  //clear the value of both input boxes
+  //toggle off the form 
+};
