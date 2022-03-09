@@ -1,11 +1,11 @@
 import { projectsDom } from "./domManipulation";
-export { render, addProject }
+export { render, addProject, saveHighlight}
 
 function projectListObject(name, description) {
-  return { name, description, id: '', tasks: [] }
+  return { name, description, id: '', tasks: [], highlighted: false }
 }
 
-let _projectListArr = JSON.parse(localStorage.getItem('projectlist')) || [];
+let _projectListArr = JSON.parse(localStorage.getItem('project.list')) || [];
 
 function render() {
   projectsDom.clearListElements(projectsDom.projectListContainer);
@@ -14,22 +14,21 @@ function render() {
 }
 
 function _saveLocalStorage() {
-  localStorage.setItem('projectlist', JSON.stringify(_projectListArr));
+  localStorage.setItem('project.list', JSON.stringify(_projectListArr));
 }
 
 function addProject() {
   _createProjectObj();
   _formEmptyValidation();
   _formDuplicate();
-  render(_projectListArr);
-  _saveLocalStorage();
+  render();
   projectsDom.toggleProjectForm();
 }
 
 function _createProjectObj() {
   let newProject = projectListObject(projectsDom.projectName.value, projectsDom.projectDescription.value);
   _projectListArr.push(newProject);
-  newProject.id = _projectListArr.indexOf(newProject); //sets id
+  newProject.id = _projectListArr.indexOf(newProject); //sets object id
 }
 
 function _formEmptyValidation() {
@@ -46,3 +45,15 @@ function _formDuplicate() {
     alert("Project Name already exists");
   }
 }
+
+function saveHighlight(highlightedlist) {
+  _projectListArr.forEach(project => {
+    project.highlighted = false;
+    if(project.name == highlightedlist) {
+      project.highlighted = true; 
+    }
+  })
+  _saveLocalStorage(); 
+}
+
+

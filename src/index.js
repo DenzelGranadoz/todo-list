@@ -1,5 +1,5 @@
 import './styles/style.css';
-import {makeList} from './project.js';
+import {render} from './modules/project.js';
 
 console.log('helo');
-makeList();
+render();

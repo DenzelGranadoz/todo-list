@@ -1,8 +1,9 @@
-import { addProject } from "./project";
+import { addProject, saveHighlight, render } from "./project";
 export { projectsDom }
 
 const projectsDom = (() => {
   const projectListContainer = document.getElementById('project_list');
+  const projectListItems = projectListContainer.childNodes;
   const _openAddProjectButton = document.getElementById('open_add_project');
   const _addProjectForm = document.getElementById('form');
   const _addProjectBtn = document.getElementById('add_project');
@@ -34,10 +35,20 @@ const projectsDom = (() => {
       const listElement = document.createElement('li');
       listElement.classList.add('project-name');
       listElement.innerHTML = project.name;
+      if(project.highlighted == true) listElement.classList.add('active-project'); //makes highlight of project stay
+      listElement.addEventListener('click', _highlightItem);
       projectListContainer.appendChild(listElement);
     })
   }
-  
+
+  function _highlightItem(e) {
+    projectListItems.forEach(projectItem => {
+      projectItem.classList.remove('active-project');
+    });
+    e.target.classList.add('active-project');
+    saveHighlight(e.target.innerHTML);
+  }
+
   function clearListElements(element) {
     while (element.firstChild) {
       element.firstChild.remove();

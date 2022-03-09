@@ -367,6 +367,12 @@ body h1 {
   padding: 0.2rem;
 }
 
+.form-block-bg {
+  width: 100vw;
+  height: 100vh;
+  position: absolute
+}
+
 .form-element {
   margin: 1.5rem;
 }
@@ -600,7 +606,6 @@ body h1 {
   .edit {
     font-size: 1.1rem;
   }
-  
   
   .todo-header h4 {
     font-size: 1rem;
