@@ -1,33 +1,48 @@
 import { projectsDom } from "./domManipulation";
-export { makeList, addProject }
+export { render, addProject }
 
-//tasks key: value?
-const projectListObject = (name, description) => {
-  return {name, description}
-};
-
-let _projectListArr = [];  //this list has to be accessible elsewhere for the localstorage thing?
-
-function makeList() {
-  _projectListArr.push(projectListObject('Sample', 'jfdakfkdlfdsla')); //when add btn in form clicked, trigger function that does this
-  _render(_projectListArr);
+function projectListObject(name, description) {
+  return { name, description, id: '', tasks: [] }
 }
 
-// projectListArr.push(projectListObject('Sample2', 'ietuwiotuiweo'));
-//have an event listener that calls render first time round?
+let _projectListArr = JSON.parse(localStorage.getItem('projectlist')) || [];
 
-function _render(projectArr) {
-  projectsDom.clearListElements(projectsDom.projectListContainer);    //id = index
-  projectsDom.renderProjectList(projectArr);
+function render() {
+  projectsDom.clearListElements(projectsDom.projectListContainer);
+  projectsDom.renderProjectList(_projectListArr);
+  _saveLocalStorage();
+}
+
+function _saveLocalStorage() {
+  localStorage.setItem('projectlist', JSON.stringify(_projectListArr));
 }
 
 function addProject() {
-  _projectListArr.push(projectListObject(projectsDom.projectName.value, projectsDom.projectDescription.value));
+  _createProjectObj();
+  _formEmptyValidation();
+  _formDuplicate();
+  render(_projectListArr);
+  _saveLocalStorage();
+  projectsDom.toggleProjectForm();
+}
+
+function _createProjectObj() {
+  let newProject = projectListObject(projectsDom.projectName.value, projectsDom.projectDescription.value);
+  _projectListArr.push(newProject);
+  newProject.id = _projectListArr.indexOf(newProject); //sets id
+}
+
+function _formEmptyValidation() {
   if(projectsDom.projectName.value == '') {
     _projectListArr.pop();
-    return;
+    alert("Project Name must be filled out");
   }
-  console.log(_projectListArr)
-  _render(_projectListArr);
-  projectsDom.toggleProjectForm();
-};
+}
+
+function _formDuplicate() {
+  const uniqueValues = new Set(_projectListArr.map(project => project.name.toLowerCase()));
+  if (uniqueValues.size < _projectListArr.length) {
+    _projectListArr.pop();
+    alert("Project Name already exists");
+  }
+}
