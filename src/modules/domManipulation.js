@@ -1,5 +1,5 @@
-import { addProject, saveHighlight, render } from "./project";
-export { projectsDom }
+import { addProject, saveHighlight } from "./project";
+export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
   const projectListContainer = document.getElementById('project_list');
@@ -65,3 +65,35 @@ const projectsDom = (() => {
     clearListElements
   }
 })();
+
+const tasksDom = (() => {
+  const header = document.getElementById('todo_header');
+  const editHeader = document.getElementById('todo_header_edit');
+  const projectName = document.getElementById('project_name_display');
+  const projectDescription = document.getElementById('project_description_display');
+
+  function updateProjectDetails(project) {
+    projectName.innerHTML = project.name;
+    projectDescription.innerHTML = project.description;
+  }
+
+  return { 
+    updateProjectDetails
+  }
+})();
+
+
+{/* <div class="todo-header " id="todo_header">
+      <div class="todo-header-bar">
+        <h2>Odin</h2>
+        <div class="todo-edit-remaining">
+          <p class="show-project-list">Open Project List</p>
+          <p>N Task(s) Remaining</p>
+          <div class="todo-edit-delete">
+            <p class="delete">Delete</p>
+            <p class="edit">Edit</p>
+          </div>
+        </div>
+      </div>
+      <h4>Project Description</h4>
+    </div> */}

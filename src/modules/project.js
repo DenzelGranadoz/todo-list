@@ -1,20 +1,24 @@
-import { projectsDom } from "./domManipulation";
-export { render, addProject, saveHighlight}
+import { projectsDom, tasksDom } from "./domManipulation";
+import { renderTasks } from "./tasks";
+export { render, addProject, saveHighlight }
 
 function projectListObject(name, description) {
   return { name, description, id: '', tasks: [], highlighted: false }
 }
 
 let _projectListArr = JSON.parse(localStorage.getItem('project.list')) || [];
+let _highlightedProject = JSON.parse(localStorage.getItem('highlighted.project')) || 0;
 
 function render() {
   projectsDom.clearListElements(projectsDom.projectListContainer);
   projectsDom.renderProjectList(_projectListArr);
+  renderTasks(_projectListArr[_highlightedProject]);
   _saveLocalStorage();
 }
 
 function _saveLocalStorage() {
   localStorage.setItem('project.list', JSON.stringify(_projectListArr));
+  localStorage.setItem('highlighted.project', JSON.stringify(_highlightedProject));
 }
 
 function addProject() {
@@ -50,10 +54,10 @@ function saveHighlight(highlightedlist) {
   _projectListArr.forEach(project => {
     project.highlighted = false;
     if(project.name == highlightedlist) {
-      project.highlighted = true; 
+      project.highlighted = true;     
+      _highlightedProject = project.id; 
+      renderTasks(project);
     }
   })
   _saveLocalStorage(); 
 }
-
-
