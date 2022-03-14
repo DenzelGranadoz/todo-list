@@ -1,4 +1,5 @@
 import { addProject, saveHighlight } from "./project";
+import { deleteProject, editProject, saveHeaderEdit } from "./tasks";
 export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
@@ -68,32 +69,38 @@ const projectsDom = (() => {
 
 const tasksDom = (() => {
   const header = document.getElementById('todo_header');
-  const editHeader = document.getElementById('todo_header_edit');
+  const editHeader = document.getElementById('todo_header_toggle');
   const projectName = document.getElementById('project_name_display');
   const projectDescription = document.getElementById('project_description_display');
+  const deleteProjectBtn = document.getElementById('delete_project');
+  const editProjectBtn = document.getElementById('edit_project');
+  const projectNameEdit = document.getElementById('project-name-edit');
+  const projectDescriptionEdit = document.getElementById('project-description-edit');
+  const cancleEditHeader = document.getElementById('cancel_edit_header');
+  const saveEditHeader = document.getElementById('save_edit_header');
 
   function updateProjectDetails(project) {
     projectName.innerHTML = project.name;
     projectDescription.innerHTML = project.description;
   }
 
+  deleteProjectBtn.addEventListener('click', deleteProject);
+  editProjectBtn.addEventListener('click', editProject);
+
+  function toggleHeader() {
+    projectsDom.toggleDisplay(header);
+    projectsDom.toggleDisplay(editHeader);
+  }
+
+  cancleEditHeader.addEventListener('click', toggleHeader);
+  saveEditHeader.addEventListener('click', saveHeaderEdit);
+
+ 
+
   return { 
-    updateProjectDetails
+    projectNameEdit,
+    projectDescriptionEdit,
+    updateProjectDetails,
+    toggleHeader,
   }
 })();
-
-
-{/* <div class="todo-header " id="todo_header">
-      <div class="todo-header-bar">
-        <h2>Odin</h2>
-        <div class="todo-edit-remaining">
-          <p class="show-project-list">Open Project List</p>
-          <p>N Task(s) Remaining</p>
-          <div class="todo-edit-delete">
-            <p class="delete">Delete</p>
-            <p class="edit">Edit</p>
-          </div>
-        </div>
-      </div>
-      <h4>Project Description</h4>
-    </div> */}
