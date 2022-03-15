@@ -1,5 +1,5 @@
 import { projectsDom, tasksDom } from "./domManipulation";
-import { renderTasks } from "./tasks";
+import { renderTasks, toggleTodoDisplay } from "./tasks";
 export { render, addProject, saveHighlight, projectListArr, _highlightedProject}
 
 function ProjectListObject(name, description) {
@@ -12,7 +12,8 @@ let _highlightedProject = JSON.parse(localStorage.getItem('highlighted.project')
 function render() {
   projectsDom.clearListElements(projectsDom.projectListContainer);
   projectsDom.renderProjectList(projectListArr);
-  renderTasks(projectListArr[_highlightedProject]);
+  if(projectListArr.length !== 0) renderTasks(projectListArr[_highlightedProject]);
+  // else toggle off the task part of the page?
   _saveLocalStorage();
 }
 
@@ -57,6 +58,7 @@ function saveHighlight(highlightedlist) {
       project.highlighted = true;     
       _highlightedProject = project.id; 
       renderTasks(project);
+      if(tasksDom.todoBody.classList.contains('hide')) toggleTodoDisplay();
     }
   })
   _saveLocalStorage(); 

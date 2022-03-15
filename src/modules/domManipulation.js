@@ -70,6 +70,7 @@ const projectsDom = (() => {
 const tasksDom = (() => {
   const header = document.getElementById('todo_header');
   const editHeader = document.getElementById('todo_header_toggle');
+  const todoBody = document.getElementById('todo_body');
   const projectName = document.getElementById('project_name_display');
   const projectDescription = document.getElementById('project_description_display');
   const deleteProjectBtn = document.getElementById('delete_project');
@@ -95,9 +96,9 @@ const tasksDom = (() => {
   cancleEditHeader.addEventListener('click', toggleHeader);
   saveEditHeader.addEventListener('click', saveHeaderEdit);
 
- 
-
   return { 
+    header,
+    todoBody,
     projectNameEdit,
     projectDescriptionEdit,
     updateProjectDetails,
