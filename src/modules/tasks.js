@@ -8,18 +8,18 @@
       //add cancel and save event listeners  - done
       //cancel just calls edit() - done
       //save has to render - done
-//access projects.tasks
-  //add tasks
-    //addeventlistener to this
-    //take details
-    //render projects.tasks
-  //render tasks
+//access projects.tasks - done
+  //add tasks - 50%
+    //addeventlistener to this - 50%
+    //take details - 50%
+    //render projects.tasks - done
+  //render tasks - done
   //make tasks deletable
   //make due date editable - date_fns
 
 import { projectsDom, tasksDom } from "./domManipulation";
 import { projectListArr, render, _highlightedProject } from "./project";
-export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay }
+export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, addTask }
 
 let highlightedProject;
 
@@ -33,47 +33,28 @@ function getHighlightedProject() {
 
 function renderTasks(project) {
   tasksDom.updateProjectDetails(project);
-  console.log(project)
-  // TaskListObject('This is test task numbah 1', '03/14/1999');
-  // TaskListObject('This is test task numbah 2', '03/14/1999');
-  // getHighlightedProject();
-  // console.log(highlightedProject);
-  // highlightedProject.tasks.push(TaskListObject('Sample2', 'ietuwiotuiweo')); 
-  // TaskListObject('This is test task numbah 3', '03/14/1999');
-  //render each to do
-    //access the object array of the highlighted.task
-    //create theelement based off that
-    //append to container
+  projectsDom.clearListElements(tasksDom.tasksContainer);
+  tasksDom.renderTasks(project);
 }
 
-// function _createProjectObj() {
-//   let newProject = ProjectListObject(projectsDom.projectName.value, projectsDom.projectDescription.value);
-//   projectListArr.push(newProject);
-//   newProject.id = projectListArr.indexOf(newProject); //sets object id
-// }
+function addTask() {
+  getHighlightedProject();
+  highlightedProject.tasks.push(TaskListObject('This is test task numbah 1', '03/14/1999'));
+  updateId(highlightedProject.tasks);
+  render();
+}
 
-// container.innerHTML += ``
-// <!-- <div class="task">
-// <input type="checkbox" id="task-3"/>
-// <label for="task-3">
-//   <span class="custom-checkbox"></span>
-//   This is a todo 3
-// </label>
-// <div class="task-properties">
-//   <div class="task-property due-date">12/4/1999</div>
-//   <div class="task-property delete-task">X</div>
-// </div>
-// </div>
+function TaskListObject(name, dueDate) {
+  // highlightedProject.tasks.push({
+  //   name,
+  //   dueDate,
+  //   id: '',
+  //   complete: false
+  // })
+  return {name, dueDate, id: '', complete: false}
+}
+//dynamically set id of each task
 
-
-// function TaskListObject(name, dueDate) {
-//   highlightedProject.tasks.push({
-//     name,
-//     dueDate,
-//     id: '',
-//     complete: false
-//   })
-// }
 
 //on first project press
 //if todo body classlist . have . hide
@@ -85,13 +66,14 @@ function deleteProject() {
   projectListArr.splice(highlightedProject.id, 1);
   projectListArr.length != 0 ? projectListArr[0].highlighted = true : window.location.reload();
   _highlightedProject = 0;
-  updateId();
+  console.log(highlightedProject);
+  updateId(projectListArr);
   render();
 }
 
-function updateId() {
-  projectListArr.forEach(project => {
-    project.id = projectListArr.indexOf(project);
+function updateId(list) {
+  list.forEach(item => {
+    item.id = list.indexOf(item);
   });
 }
 
