@@ -116,8 +116,8 @@ const tasksDom = (() => {
           <span class="custom-checkbox"></span>
           ${task.name}
         </label>
-        <div class="task-properties">
-          <div class="task-property due-date" id="due_date">${task.dueDate}</div>
+        <div class="task-properties" id="task_properties">
+          <div class="task-property due-date" id="due_date">${task.dueDateWord}</div>
           <div class="task-property delete-task" id="delete_task">X</div>
         </div>
       </div>`
@@ -126,20 +126,36 @@ const tasksDom = (() => {
       //due_task_${task.id}
       //getelementbyid(`due_task_${task.id}`);
       //add event listener to it
+      console.log(task.dueDate)
       const dueDate = document.getElementById('due_date'); //add due_date_index??? or u could just queryselectorAll then add event listener?
       const deleteTaskBtn = document.getElementById('delete_task');
       const taskChecked = document.getElementById(`task-${task.id}`); //check if true checked? then adjsut the object 
 
+
       //foreach checkbox check if checked===true then save that?
       // console.log(taskChecked.checked);
       // taskChecked.addEventListener('click', saveHighlight);)
-      dueDate.addEventListener('click', editDueDate);
-      deleteTaskBtn.addEventListener('click', deleteTask);
+      // dueDate.addEventListener('click', editDueDate);
+      // deleteTaskBtn.addEventListener('click', deleteTask);
+    })
+    const taskProperty = document.querySelectorAll('.task-property');
+
+    taskProperty.forEach(task => {
+      if(task.classList.contains('due-date')) task.addEventListener('click', editDueDate);
+      if(task.classList.contains('delete-task')) task.addEventListener('click', deleteTask);
     })
   }
 
-  function editDueDate() {
-    console.log('edit due date');
+
+  //if adding empty task, inside validation, cancel the process somewhere
+  //custom id
+  //go thru the whole list
+  //find matching id
+  //take the property.numduedate
+  //assign that as value when toggling the date calendar thing
+
+  function editDueDate(e) {
+    console.log(e_target);
   }
 
   function deleteTask() {
