@@ -1,5 +1,5 @@
-import { addProject, saveHighlight } from "./project";
-import { deleteProject, editProject, saveHeaderEdit, addTask } from "./tasks";
+import { addProject, render, saveHighlight } from "./project";
+import { deleteProject, editProject, saveHeaderEdit, saveNewTask } from "./tasks";
 export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
@@ -80,7 +80,12 @@ const tasksDom = (() => {
   const cancleEditHeader = document.getElementById('cancel_edit_header');
   const saveEditHeader = document.getElementById('save_edit_header');
   const addTasks = document.getElementById('add_task');
+  const newTaskBar = document.getElementById('new_task_bar');
   const tasksContainer = document.getElementById('tasks_container');
+  const newDueDate = document.getElementById('new_due_date');
+  const addNewTask = document.getElementById('add_new_task');
+  const cancelNewTask = document.getElementById('cancel_new_task');
+  const taskName = document.getElementById('task-name');
 
   function updateProjectDetails(project) {
     projectName.innerHTML = project.name;
@@ -100,6 +105,9 @@ const tasksDom = (() => {
 
   function renderTasks(project) {
     console.log(project.tasks);
+    //or call a function that checks if tasks array is empyty
+    //if empty then just end this 
+    //if not empty do the queryselectorall
     project.tasks.forEach(task => {
       tasksContainer.innerHTML += `
       <div class="task">
@@ -113,19 +121,22 @@ const tasksDom = (() => {
           <div class="task-property delete-task" id="delete_task">X</div>
         </div>
       </div>`
-      const dueDate = document.getElementById('due_date');
+      
+      // <div class="task-property due-date" id="due_date">${task.dueDate}</div> 
+      //due_task_${task.id}
+      //getelementbyid(`due_task_${task.id}`);
+      //add event listener to it
+      const dueDate = document.getElementById('due_date'); //add due_date_index??? or u could just queryselectorAll then add event listener?
       const deleteTaskBtn = document.getElementById('delete_task');
       const taskChecked = document.getElementById(`task-${task.id}`); //check if true checked? then adjsut the object 
 
+      //foreach checkbox check if checked===true then save that?
       // console.log(taskChecked.checked);
       // taskChecked.addEventListener('click', saveHighlight);)
       dueDate.addEventListener('click', editDueDate);
       deleteTaskBtn.addEventListener('click', deleteTask);
     })
   }
- 
-
- 
 
   function editDueDate() {
     console.log('edit due date');
@@ -135,16 +146,43 @@ const tasksDom = (() => {
     console.log('delete task button')
   }
 
-  addTasks.addEventListener('click', addTask);
+  addTasks.addEventListener('click', toggleAddTask);
+  cancelNewTask.addEventListener('click', toggleAddTask);
+  addNewTask.addEventListener('click', saveTask)
+
+  function toggleAddTask() {
+    projectsDom.toggleDisplay(tasksDom.newTaskBar);
+    projectsDom.toggleDisplay(tasksDom.addTasks);
+    newDueDate.value = '';
+    taskName.value = '';
+  }
+
+  function saveTask() {
+    validateTaskDetails();
+    saveNewTask();
+    toggleAddTask();
+  }
+
+  function validateTaskDetails() {
+    if(newDueDate.value == '' || taskName.value == '') {
+      alert('Please fill in both fields');
+      render();
+    }
+  }
 
   return { 
     header,
     todoBody,
     projectNameEdit,
     projectDescriptionEdit,
+    addTasks,
+    newTaskBar,
     tasksContainer,
+    newDueDate,
+    taskName,
     updateProjectDetails,
     toggleHeader,
-    renderTasks
+    renderTasks,
+    toggleAddTask
   }
 })();

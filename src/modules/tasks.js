@@ -17,17 +17,22 @@
   //make tasks deletable
   //make due date editable - date_fns
 
+//being able to saved finished todo
+//adding a proper to do
+//date_fns
+//fixing event listeners for each todo
+//check if no projects then hide the todo shiz
+
 import { projectsDom, tasksDom } from "./domManipulation";
 import { projectListArr, render, _highlightedProject } from "./project";
-export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, addTask }
+import { format, formatDistance, subDays } from 'date-fns'
+export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask }
 
 let highlightedProject;
 
 function getHighlightedProject() {
   projectListArr.forEach(project => {
     if(project.highlighted) highlightedProject = project;
-    // console.log(highlightedProject);
-    // console.log(highlightedProject.tasks)
   });
 }
 
@@ -35,31 +40,12 @@ function renderTasks(project) {
   tasksDom.updateProjectDetails(project);
   projectsDom.clearListElements(tasksDom.tasksContainer);
   tasksDom.renderTasks(project);
-}
-
-function addTask() {
-  getHighlightedProject();
-  highlightedProject.tasks.push(TaskListObject('This is test task numbah 1', '03/14/1999'));
-  updateId(highlightedProject.tasks);
-  render();
+  if(tasksDom.addTasks.classList.contains('hide')) tasksDom.toggleAddTask();
 }
 
 function TaskListObject(name, dueDate) {
-  // highlightedProject.tasks.push({
-  //   name,
-  //   dueDate,
-  //   id: '',
-  //   complete: false
-  // })
   return {name, dueDate, id: '', complete: false}
 }
-//dynamically set id of each task
-
-
-//on first project press
-//if todo body classlist . have . hide
-//toggle it off 
-//else continue wiht whole program
 
 function deleteProject() {
   getHighlightedProject();
@@ -77,6 +63,33 @@ function updateId(list) {
   });
 }
 
+function saveNewTask() {
+  console.log(tasksDom.newDueDate.value);
+  console.log(tasksDom.taskName.value);
+  getHighlightedProject();
+  highlightedProject.tasks.push(TaskListObject(tasksDom.taskName.value, formatDate(tasksDom.newDueDate.value)));
+  updateId(highlightedProject.tasks);
+  render();
+}
+
+function formatDate(due) {
+  const year = due.split('-')[0];
+  const month = due.split('-')[1];
+  const day = due.split('-')[2];
+  // displayDate();
+  return format(new Date(year, month-1, day), 'MM/dd/yyyy'); //I don't know why it adds a month on its own
+}
+
+// function displayDate() {
+//   let formatDistance = require('date-fns/formatDistance')
+//   let result = formatDistance(
+//     formatDate(tasksDom.newDueDate.value),
+//     {addSuffix: true}
+//   )
+//   console.log(result);
+// }
+
+//dom functions, move this later
 function editProject() {
   getHighlightedProject();
   tasksDom.toggleHeader();
@@ -92,6 +105,6 @@ function editProject() {
 }
 
 function toggleTodoDisplay() {
-    projectsDom.toggleDisplay(tasksDom.todoBody);
-    projectsDom.toggleDisplay(tasksDom.header);
+  projectsDom.toggleDisplay(tasksDom.todoBody);
+  projectsDom.toggleDisplay(tasksDom.header);
 }
