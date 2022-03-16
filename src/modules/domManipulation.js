@@ -1,5 +1,5 @@
 import { addProject, render, saveHighlight } from "./project";
-import { deleteProject, editProject, saveHeaderEdit, saveNewTask } from "./tasks";
+import { deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask } from "./tasks";
 export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
@@ -117,19 +117,23 @@ const tasksDom = (() => {
           ${task.name}
         </label>
         <div class="task-properties" id="task_properties">
-          <div class="task-property due-date" id="due_date">${task.dueDateWord}</div>
-          <div class="task-property delete-task" id="delete_task">X</div>
+          <input class="task-property date-drop-down hide" type="date">
+          <div class="task-property due-date" id="${task.id}">${task.dueDateWord}</div>
+          <div class="task-property delete-task" id="${task.id}">X</div>
         </div>
       </div>`
       
+      const dateElement = document.createElement('input');
+      // dateElement.classList.add('task-property');
+      // dateElement.classList.add('date-dropdown');
       // <div class="task-property due-date" id="due_date">${task.dueDate}</div> 
       //due_task_${task.id}
       //getelementbyid(`due_task_${task.id}`);
       //add event listener to it
-      console.log(task.dueDate)
-      const dueDate = document.getElementById('due_date'); //add due_date_index??? or u could just queryselectorAll then add event listener?
-      const deleteTaskBtn = document.getElementById('delete_task');
-      const taskChecked = document.getElementById(`task-${task.id}`); //check if true checked? then adjsut the object 
+      // console.log(task.dueDate)
+      // const dueDate = document.getElementById('due_date'); //add due_date_index??? or u could just queryselectorAll then add event listener?
+      // const deleteTaskBtn = document.getElementById('delete_task');
+      // const taskChecked = document.getElementById(`task-${task.id}`); //check if true checked? then adjsut the object 
 
 
       //foreach checkbox check if checked===true then save that?
@@ -143,9 +147,9 @@ const tasksDom = (() => {
     taskProperty.forEach(task => {
       if(task.classList.contains('due-date')) task.addEventListener('click', editDueDate);
       if(task.classList.contains('delete-task')) task.addEventListener('click', deleteTask);
+    
     })
   }
-
 
   //if adding empty task, inside validation, cancel the process somewhere
   //custom id
@@ -154,13 +158,6 @@ const tasksDom = (() => {
   //take the property.numduedate
   //assign that as value when toggling the date calendar thing
 
-  function editDueDate(e) {
-    console.log(e_target);
-  }
-
-  function deleteTask() {
-    console.log('delete task button')
-  }
 
   addTasks.addEventListener('click', toggleAddTask);
   cancelNewTask.addEventListener('click', toggleAddTask);

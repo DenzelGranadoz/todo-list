@@ -8,8 +8,8 @@
 
 import { projectsDom, tasksDom } from "./domManipulation";
 import { projectListArr, render, _highlightedProject } from "./project";
-import { format, formatDistance, subDays } from 'date-fns'
-export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask }
+import { format, formatDistance } from 'date-fns'
+export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask, editDueDate, deleteTask }
 
 let highlightedProject;
 
@@ -71,9 +71,26 @@ function numFormatDate(due) {
   const year = due.split('-')[0];
   const month = due.split('-')[1];
   const day = due.split('-')[2];
-  return format(new Date(year, month-1, day), 
-                  'MM/dd/yyyy'); //I don't know why it adds a month on its own
+  return format(new Date(year, month-1, day), //I don't know why it adds a month on its own
+                  'MM/dd/yyyy'); 
 }
+
+function editDueDate(e) {
+  console.log(e.target.id);
+  getHighlightedProject();
+  const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
+  console.log(highlightedProject.tasks);
+  //toggle the date display
+  //assign the date value as selectedTask.dueDate
+  //go from there?
+}
+
+function deleteTask(e) {
+  getHighlightedProject();
+  highlightedProject.tasks = highlightedProject.tasks.filter(task => e.target.id != task.id);
+  render();
+}
+
 
 function editProject() {
   getHighlightedProject();
