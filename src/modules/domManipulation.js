@@ -1,5 +1,5 @@
 import { addProject, render, saveHighlight } from "./project";
-import { deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask } from "./tasks";
+import { deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask, saveEditedDue } from "./tasks";
 export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
@@ -105,51 +105,58 @@ const tasksDom = (() => {
 
   function renderTasks(project) {
     console.log(project.tasks);
-    //or call a function that checks if tasks array is empyty
-    //if empty then just end this 
-    //if not empty do the queryselectorall
     project.tasks.forEach(task => {
       tasksContainer.innerHTML += `
       <div class="task">
-        <input type="checkbox" id="task-${task.id}"/>
+        <input type="checkbox" class="taskbox" id="task-${task.id}"/>
         <label for="task-${task.id}">
           <span class="custom-checkbox"></span>
           ${task.name}
         </label>
         <div class="task-properties" id="task_properties">
-          <input class="task-property date-drop-down hide" type="date">
-          <div class="task-property due-date" id="${task.id}">${task.dueDateWord}</div>
-          <div class="task-property delete-task" id="${task.id}">X</div>
+          <input class="task-property date-drop-down due-${task.id} hide" id="${task.id}" type="date">
+          <div class="task-property btn add-project save-due-date hide" id="${task.id}">Save</div>
+          <div class="task-property due-date " id="${task.id}">${task.dueDateWord}</div>
+          <div class="task-property delete-task " id="${task.id}">X</div>
         </div>
       </div>`
-      
-      const dateElement = document.createElement('input');
-      // dateElement.classList.add('task-property');
-      // dateElement.classList.add('date-dropdown');
-      // <div class="task-property due-date" id="due_date">${task.dueDate}</div> 
-      //due_task_${task.id}
-      //getelementbyid(`due_task_${task.id}`);
-      //add event listener to it
-      // console.log(task.dueDate)
-      // const dueDate = document.getElementById('due_date'); //add due_date_index??? or u could just queryselectorAll then add event listener?
-      // const deleteTaskBtn = document.getElementById('delete_task');
-      // const taskChecked = document.getElementById(`task-${task.id}`); //check if true checked? then adjsut the object 
-
-
-      //foreach checkbox check if checked===true then save that?
-      // console.log(taskChecked.checked);
-      // taskChecked.addEventListener('click', saveHighlight);)
-      // dueDate.addEventListener('click', editDueDate);
-      // deleteTaskBtn.addEventListener('click', deleteTask);
     })
+
+    //add event listener to save button
+    
     const taskProperty = document.querySelectorAll('.task-property');
 
-    taskProperty.forEach(task => {
-      if(task.classList.contains('due-date')) task.addEventListener('click', editDueDate);
-      if(task.classList.contains('delete-task')) task.addEventListener('click', deleteTask);
-    
+    taskProperty.forEach(property => {
+      if(property.classList.contains('due-date')) property.addEventListener('click', editDueDate);
+      if(property.classList.contains('delete-task')) property.addEventListener('click', deleteTask);
+      if(property.classList.contains('save-due-date')) property.addEventListener('click', saveEditedDue);
     })
   }
+
+  //call this from task.js
+  
+
+  function toggleTaskProperties(task) {
+    const taskProperty = document.querySelectorAll('.task-property');
+    taskProperty.forEach(property => {
+      if(task.id == property.id) projectsDom.toggleDisplay(property);
+      if(property.classList.contains(`due-${task.id}`)) {
+        property.value = task.dueDate;
+      }
+    });
+  }
+
+  function saveTaskPropertes(task) {
+    const taskProperty = document.querySelectorAll('.task-property');
+    taskProperty.forEach(property => {
+      if(task.id == property.id) projectsDom.toggleDisplay(property);
+      if(property.classList.contains(`due-${task.id}`)) {
+        task.dueDate = property.value;
+      }
+    });
+    // return task;
+  }
+
 
   //if adding empty task, inside validation, cancel the process somewhere
   //custom id
@@ -173,7 +180,7 @@ const tasksDom = (() => {
   function saveTask() {
     validateTaskDetails();
     saveNewTask();
-    toggleAddTask();
+    // toggleAddTask();
   }
 
   function validateTaskDetails() {
@@ -196,6 +203,8 @@ const tasksDom = (() => {
     updateProjectDetails,
     toggleHeader,
     renderTasks,
-    toggleAddTask
+    toggleAddTask,
+    toggleTaskProperties,
+    saveTaskPropertes
   }
 })();

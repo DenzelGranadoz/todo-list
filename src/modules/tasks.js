@@ -1,17 +1,13 @@
-  //make tasks deletable 
-  //make due date editable - date_fns
-
-//being able to save finished todo
-//date_fns
-//fixing event listeners for each todo
-//check if no projects then hide the todo shiz
-
 import { projectsDom, tasksDom } from "./domManipulation";
 import { projectListArr, render, _highlightedProject } from "./project";
 import { format, formatDistance } from 'date-fns'
-export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask, editDueDate, deleteTask }
+export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask, editDueDate, deleteTask, saveEditedDue }
 
 let highlightedProject;
+
+function TaskListObject(name, dueDateWord, dueDate) {
+  return {name, dueDateWord, dueDate, id: '', complete: false}
+}
 
 function getHighlightedProject() {
   projectListArr.forEach(project => {
@@ -24,10 +20,6 @@ function renderTasks(project) {
   projectsDom.clearListElements(tasksDom.tasksContainer);
   tasksDom.renderTasks(project);
   if(tasksDom.addTasks.classList.contains('hide')) tasksDom.toggleAddTask();
-}
-
-function TaskListObject(name, dueDateWord, dueDate) {
-  return {name, dueDateWord, dueDate, id: '', complete: false}
 }
 
 function deleteProject() {
@@ -50,7 +42,7 @@ function saveNewTask() {
   console.log(tasksDom.newDueDate.value);
   console.log(tasksDom.taskName.value);
   getHighlightedProject();
-  highlightedProject.tasks.push(TaskListObject(tasksDom.taskName.value, wordFormatDate(tasksDom.newDueDate.value), numFormatDate(tasksDom.newDueDate.value)));
+  highlightedProject.tasks.push(TaskListObject(tasksDom.taskName.value, wordFormatDate(tasksDom.newDueDate.value), tasksDom.newDueDate.value));
   updateId(highlightedProject.tasks);
   render();
 }
@@ -67,22 +59,22 @@ function wordFormatDate(due) {
   return result;
 }
 
-function numFormatDate(due) {
-  const year = due.split('-')[0];
-  const month = due.split('-')[1];
-  const day = due.split('-')[2];
-  return format(new Date(year, month-1, day), //I don't know why it adds a month on its own
-                  'MM/dd/yyyy'); 
-}
-
 function editDueDate(e) {
-  console.log(e.target.id);
   getHighlightedProject();
   const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
-  console.log(highlightedProject.tasks);
-  //toggle the date display
-  //assign the date value as selectedTask.dueDate
-  //go from there?
+  console.log(selectedTask[0]);
+  tasksDom.toggleTaskProperties(selectedTask[0]);
+}
+
+function saveEditedDue(e){
+  getHighlightedProject();
+  const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
+  console.log(selectedTask[0]);
+  tasksDom.saveTaskPropertes(selectedTask[0]);
+  console.log(selectedTask[0].dueDate)
+  selectedTask[0].dueDateWord = wordFormatDate(selectedTask[0].dueDate);
+  render();
+
 }
 
 function deleteTask(e) {
@@ -90,7 +82,6 @@ function deleteTask(e) {
   highlightedProject.tasks = highlightedProject.tasks.filter(task => e.target.id != task.id);
   render();
 }
-
 
 function editProject() {
   getHighlightedProject();
