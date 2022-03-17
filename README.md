@@ -36,6 +36,7 @@ To get this project up and running locally, follow the steps below:
 ## Features and Usage
 * Responsive Web Design (Phone and Tablet friendly)
 * Different Lists of To-Dos (Each has their own list)
+<<<<<<< HEAD
 * Each To-do name and description can be edited
 * Tasks in each To-do has a due date and is editable
 * List items and Tasks can be deleted
@@ -44,3 +45,10 @@ To get this project up and running locally, follow the steps below:
 On the homepage there are two parts:
 * To-Do List.- To switch between different To-Do / Projects
 * Tasks List .- To check or uncheck Task for the selected To-Do / project
+=======
+* Each To-do can be edited
+* Each Task in each To-do can also be edited
+* Tasks has a due date
+* Tasks due date can be updated
+* List or Tasks can be deleted
+>>>>>>> 28f318dccf478d7f3464313b31455f58f29f0429
