@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
-  <script src="main.js"></script>
+  <script defer src="main.js"></script>
 </head>
 <body>
   <h1 class="title">To-Do List</h1>
@@ -13,28 +13,27 @@
   <div class="all-projects">
     <div class="close-list">X</div>
     <h2 class="project-list-title">Projects</h2>
-    <ul class="project-list">
-      <li class="project-name active-project">Odin</li>
-      <li class="project-name">School</li>
-      <li class="project-name">Chores</li>
-    </ul>
-    <button class="btn open-add-project">Add Project</button>
+    <ul class="project-list" id="project_list"></ul>
+    <button class="btn open-add-project" id="open_add_project">Add Project</button>
   </div>
 
   <!-- todo / task list -->
   <div class="todo-list">
-    <div class="todo-header">
+    <div class="todo-header " id="todo_header">
       <div class="todo-header-bar">
-        <h2>Odin</h2>
+        <h2 id="project_name_display">Project</h2>
         <div class="todo-edit-remaining">
           <p class="show-project-list">Open Project List</p>
           <p>N Task(s) Remaining</p>
-          <p class="edit">Edit</p>
+          <div class="todo-edit-delete">
+            <p class="delete" id="delete_project">Delete</p>
+            <p class="edit" id="edit_project">Edit</p>
+          </div>
         </div>
       </div>
-      <h4>Project Description</h4>
+      <h4 id="project_description_display">Project Description</h4>
     </div>
-    <div class="todo-header hide">
+    <div class="todo-header hide" id="todo_header_toggle">
       <div class="todo-header-bar">
         <input 
           type="text" 
@@ -43,8 +42,8 @@
           aria-label="Project Name"
           />
           <div class="todo-edit-remaining">
-            <button class="btn close-add-project edit-project">Cancel</button>
-            <button class="btn add-project edit-project">Save</button>
+            <button class="btn close-add-project edit-project" id="cancel_edit_header">Cancel</button>
+            <button class="btn add-project edit-project" id="save_edit_header">Save</button>
           </div>
       </div>
       <input 
@@ -54,97 +53,50 @@
         aria-label="Project description"
         />
     </div>
-    <div class="todo-body">
-      <div class="tasks">
-        <div class="task">
-          <input type="checkbox" id="task-1"/>
-          <label for="task-1">
-            <span class="custom-checkbox"></span>
-            This is a todo
-          </label>
-          <div class="task-properties">
-            <!-- <div class="task-property notes">Notes</div> -->
-            <div class="task-property due-date">12/4/1999</div>
-            <div class="task-property delete-task">X</div>
-          </div>
-        </div>
-        <div class="task">
-          <input type="checkbox" id="task-2"/>
-          <label for="task-2">
-            <span class="custom-checkbox"></span>
-            This is a todo 2
-          </label>
-          <div class="task-properties">
-            <!-- <div class="task-property notes">Notes</div> -->
-            <div class="task-property due-date">12/4/1999</div>
-            <div class="task-property delete-task">X</div>
-          </div>
-        </div>
-        <div class="task">
-          <input type="checkbox" id="task-3"/>
-          <label for="task-3">
-            <span class="custom-checkbox"></span>
-            This is a todo 3
-          </label>
-          <div class="task-properties">
-            <!-- <div class="task-property notes">Notes</div> -->
-            <div class="task-property due-date">12/4/1999</div>
-            <div class="task-property delete-task">X</div>
-          </div>
-        </div>
-        <div class="task">
-          <input type="checkbox" id="task-4"/>
-          <label for="task-4">
-            <span class="custom-checkbox"></span>
-            This is a todo 4
-          </label>
-          <div class="task-properties">
-            <!-- <div class="task-property notes">Notes</div> -->
-            <div class="task-property due-date">12/4/1999</div>
-            <div class="task-property delete-task">X</div>
-          </div>
-        </div>
-        <div class="new-task hide">
+    <div class="todo-body " id="todo_body">
+      <div class="tasks" id="tasks_container"></div>
+        <div class="new-task hide" id="new_task_bar">
           <input 
             type="text" 
             id="task-name" 
             placeholder="Task Name / Description"
             aria-label="Task Name / Description"
             />
-          <div class="task-properties">
-            <!-- <div class="task-property notes">Notes</div> -->
-            <div class="task-property due-date">12/4/1999</div>
-            <div class="task-property delete-task">X</div>
+          <div class="add-task-properties">
+            <input class="task-property date-drop-down" id="new_due_date" type="date">
+            <div class="task-property btn close-add-project cancel-new-task" id="cancel_new_task">Cancel</div>
+            <div class="task-property btn add-project add-new-task" id="add_new_task">Save</div>
           </div>
         </div>
-        <button class="btn add-task">Add task</button>
-      </div>
+        <button class="btn add-task" id="add_task">Add task</button>
     </div>
   </div>
   
   <!-- add project form  -->
-  <div class="form hide">
-    <div class="form-element">
-      <label for="project-name">Project Name:</label>
-      <input 
-        type="text" 
-        id="project-name" 
-        placeholder="Project Name / Task" 
-        aria-label="Project Name / Task"
-      />
-    </div>
-    <div class="form-element">
-      <label for="project-description">Description:</label>
-      <input 
-        type="text" 
-        id="project-description" 
-        placeholder="Project Description"
-        aria-label="Project Description"
+  <div class="form-block-bg hide" id="form">
+    <div class="form">
+      <div class="form-element">
+        <label for="project-name">Project Name:</label>
+        <input 
+          type="text" 
+          id="project_name" 
+          placeholder="Project Name / Task" 
+          aria-label="Project Name / Task"
         />
-    </div>
-    <div class="form-element form-element-button">
-      <button class="btn close-add-project">Cancel</button>
-      <button class="btn add-project">Add Project</button>
+      </div>
+      <div class="form-element">
+        <label for="project-description">Description (optional):</label>
+        <input 
+          type="text" 
+          id="project_description" 
+          placeholder="Project Description"
+          aria-label="Project Description"
+          />
+      </div>
+      <div class="form-element form-element-button">
+        <button class="btn close-add-project" id="close_add_project">Cancel</button>
+        <button class="btn add-project" id="add_project">Add Project</button>
+      </div>
     </div>
   </div>
 
@@ -154,7 +106,6 @@
       <span><a href="https://github.com/DenzelGranadoz" target="_blank">Made by: Denzel Granadoz</a></span>
       <span>|</span>
       <span><a href="https://github.com/DenzelGranadoz/todo-list" target="_blank">Click me for Source Code</a></span>
-
     </div>
   </footer>
 </body>
