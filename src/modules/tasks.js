@@ -92,6 +92,9 @@ function editProject() {
   render();
 }
 
+
+
+
 // function checkTask(e) {
 //   getHighlightedProject();
 //   const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
