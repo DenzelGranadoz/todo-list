@@ -1,5 +1,5 @@
 import { addProject, render, saveHighlight } from "./project";
-import { deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask, saveEditedDue } from "./tasks";
+import { deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask, saveEditedDue, checkTask } from "./tasks";
 export { projectsDom, tasksDom }
 
 const projectsDom = (() => {
@@ -104,12 +104,11 @@ const tasksDom = (() => {
   saveEditHeader.addEventListener('click', saveHeaderEdit);
 
   function renderTasks(project) {
-    console.log(project.tasks);
     project.tasks.forEach(task => {
       tasksContainer.innerHTML += `
       <div class="task">
-        <input type="checkbox" class="taskbox" id="task-${task.id}"/>
-        <label for="task-${task.id}">
+        <input type="checkbox" class="taskbox" id="${task.id}"/>
+        <label for="${task.id}">
           <span class="custom-checkbox"></span>
           ${task.name}
         </label>
@@ -122,8 +121,6 @@ const tasksDom = (() => {
       </div>`
     })
 
-    //add event listener to save button
-    
     const taskProperty = document.querySelectorAll('.task-property');
 
     taskProperty.forEach(property => {
@@ -132,9 +129,6 @@ const tasksDom = (() => {
       if(property.classList.contains('save-due-date')) property.addEventListener('click', saveEditedDue);
     })
   }
-
-  //call this from task.js
-  
 
   function toggleTaskProperties(task) {
     const taskProperty = document.querySelectorAll('.task-property');
@@ -154,17 +148,7 @@ const tasksDom = (() => {
         task.dueDate = property.value;
       }
     });
-    // return task;
   }
-
-
-  //if adding empty task, inside validation, cancel the process somewhere
-  //custom id
-  //go thru the whole list
-  //find matching id
-  //take the property.numduedate
-  //assign that as value when toggling the date calendar thing
-
 
   addTasks.addEventListener('click', toggleAddTask);
   cancelNewTask.addEventListener('click', toggleAddTask);
@@ -180,7 +164,6 @@ const tasksDom = (() => {
   function saveTask() {
     validateTaskDetails();
     saveNewTask();
-    // toggleAddTask();
   }
 
   function validateTaskDetails() {
@@ -189,6 +172,12 @@ const tasksDom = (() => {
       render();
     }
   }
+
+  function toggleTodoDisplay() {
+    projectsDom.toggleDisplay(header)
+    projectsDom.toggleDisplay(todoBody)
+  }
+
 
   return { 
     header,
@@ -205,6 +194,7 @@ const tasksDom = (() => {
     renderTasks,
     toggleAddTask,
     toggleTaskProperties,
-    saveTaskPropertes
+    saveTaskPropertes,
+    toggleTodoDisplay
   }
 })();

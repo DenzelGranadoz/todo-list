@@ -1,7 +1,7 @@
 import { projectsDom, tasksDom } from "./domManipulation";
 import { projectListArr, render, _highlightedProject } from "./project";
-import { format, formatDistance } from 'date-fns'
-export { renderTasks, deleteProject, editProject, saveHeaderEdit, toggleTodoDisplay, saveNewTask, editDueDate, deleteTask, saveEditedDue }
+import { formatDistance } from 'date-fns'
+export { renderTasks, deleteProject, editProject, saveHeaderEdit, saveNewTask, editDueDate, deleteTask, saveEditedDue }
 
 let highlightedProject;
 
@@ -27,7 +27,6 @@ function deleteProject() {
   projectListArr.splice(highlightedProject.id, 1);
   projectListArr.length != 0 ? projectListArr[0].highlighted = true : window.location.reload();
   _highlightedProject = 0;
-  console.log(highlightedProject);
   updateId(projectListArr);
   render();
 }
@@ -39,8 +38,6 @@ function updateId(list) {
 }
 
 function saveNewTask() {
-  console.log(tasksDom.newDueDate.value);
-  console.log(tasksDom.taskName.value);
   getHighlightedProject();
   highlightedProject.tasks.push(TaskListObject(tasksDom.taskName.value, wordFormatDate(tasksDom.newDueDate.value), tasksDom.newDueDate.value));
   updateId(highlightedProject.tasks);
@@ -62,16 +59,14 @@ function wordFormatDate(due) {
 function editDueDate(e) {
   getHighlightedProject();
   const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
-  console.log(selectedTask[0]);
   tasksDom.toggleTaskProperties(selectedTask[0]);
 }
 
 function saveEditedDue(e){
   getHighlightedProject();
   const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
-  console.log(selectedTask[0]);
   tasksDom.saveTaskPropertes(selectedTask[0]);
-  console.log(selectedTask[0].dueDate)
+  console.log(selectedTask)
   selectedTask[0].dueDateWord = wordFormatDate(selectedTask[0].dueDate);
   render();
 
@@ -97,7 +92,11 @@ function editProject() {
   render();
 }
 
-function toggleTodoDisplay() {
-  projectsDom.toggleDisplay(tasksDom.todoBody);
-  projectsDom.toggleDisplay(tasksDom.header);
-}
+// function checkTask(e) {
+//   getHighlightedProject();
+//   const selectedTask = highlightedProject.tasks.filter(task => e.target.id == task.id);
+//   console.log(selectedTask);
+//   if(selectedTask[0].complete == true) selectedTask[0].complete = false;
+//   else selectedTask[0].complete = true;
+//   tasksDom.checkAttribute(selectedTask[0]);
+// }
