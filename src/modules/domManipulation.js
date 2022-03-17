@@ -86,6 +86,9 @@ const tasksDom = (() => {
   const addNewTask = document.getElementById('add_new_task');
   const cancelNewTask = document.getElementById('cancel_new_task');
   const taskName = document.getElementById('task-name');
+  const showProject = document.querySelector('.show-project-list');
+  const projectList = document.querySelector('.all-projects');
+  const closeProjectList = document.querySelector('.close-list');
 
   function updateProjectDetails(project) {
     projectName.innerHTML = project.name;
@@ -178,6 +181,20 @@ const tasksDom = (() => {
     projectsDom.toggleDisplay(todoBody)
   }
 
+  function myFunction(x) {
+    if (x.matches) { // If media query matches
+      showProject.addEventListener('click', () => {
+        projectList.style.display = 'block';
+      });
+      closeProjectList.addEventListener('click', () => {
+        projectList.style.display = 'none';
+      })
+    } 
+  }
+  
+  var x = window.matchMedia("(max-width: 768px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
 
   return { 
     header,
