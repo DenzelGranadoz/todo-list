@@ -14,6 +14,7 @@ This is a [Todo-List](https://www.theodinproject.com/paths/full-stack-javascript
 * HTML
 * CSS
 * JavaScript
+* Webpack
 
 ## Getting Started
 
@@ -42,3 +43,8 @@ To get this project up and running locally, follow the steps below:
 On the homepage there are two parts:
 * To-Do List.- To switch between different To-Do / Projects
 * Tasks List .- To check or uncheck Task for the selected To-Do / project
+
+## Improvements
+Features to be added or improved on
+* Editable To-Do Item
+* Fix the Number of Tasks Display
